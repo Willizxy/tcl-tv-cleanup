@@ -1,0 +1,10 @@
+# TCL Smart TV Pro (BeyondTV4, G03_4K_GB, V8-R51MT05-LF1V508), Google TV on Android 11 (SDK 30), build AR05
+# Batch 4: off by owner choice: Play Movies, Rakuten, USB media player set, game bar, PVR playback
+com.google.android.videos
+tv.wuaki.apptv
+com.tcl.ui_mediaCenter
+com.tcl.videoplayer
+com.tcl.audioplayer
+com.tcl.imageplayer
+com.tcl.gamebar
+com.tcl.pvr.pvrplayer

@@ -1,0 +1,11 @@
+# TCL Smart TV Pro (BeyondTV4, G03_4K_GB, V8-R51MT05-LF1V508), Google TV on Android 11 (SDK 30), build AR05
+# Batch 2: TCL and Google content, ads, recommendation rows, partner auto-installs
+com.tcl.dashboard
+com.tcl.partnercustomizer
+com.tcl.messagebox
+com.tcl.overseasappshow
+com.tcl.esticker
+com.tcl.waterfall.overseas
+android.autoinstalls.config.google.gtvpai
+com.google.android.partnersetup
+com.google.android.onetimeinitializer
