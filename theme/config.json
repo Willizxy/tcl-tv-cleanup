@@ -30,5 +30,6 @@
   "wifi_label_width": 180,
   "advanced_effects": true,
   "tile_menu": true,
-  "cinematic_home": false
+  "cinematic_home": false,
+  "focus_overshoot": false
 }

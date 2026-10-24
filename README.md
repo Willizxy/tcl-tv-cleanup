@@ -53,6 +53,11 @@ All 35 stay disabled after a reboot; this firmware doesn't turn them back on.
   - 8 space photos, mostly NASA/ISS. See [CREDITS.md](CREDITS.md).
 - **Live TV:** the Inputs menu lists HDMI 1–3, AV and Live TV (`com.tcl.tv`).
 
+**Add-ons installed:**
+- **Weather** (upstream `addons/weather`, by [@Sumyabazar1](https://github.com/Sumyabazar1)): a module-card tile showing current conditions, air quality and a 3-day forecast for Biggleswade, from [Open-Meteo](https://open-meteo.com) (no account or API key). Build from upstream and sideload the APK; the launcher asks once to show the card. See [addons/weather/README.md](https://github.com/Gathin23/cleanyourtv/blob/main/addons/weather/README.md).
+
+**Motion:** `focus_overshoot: false` — the focus highlight glides to its target without bouncing past.
+
 ![App grid](docs/grid.jpg) ![Inputs menu](docs/inputs.jpg)
 
 **Remote buttons:** Netflix, Freeview Play and gear were answered only by Google TV's launcher, so they go
