@@ -1,7 +1,9 @@
 # TCL Smart TV Pro (BeyondTV4, G03_4K_GB, V8-R51MT05-LF1V508), Google TV on Android 11 (SDK 30), build AR05
 # Batch 5: off by owner choice: Google voice/Assistant, TCL voice, Alexa, mic manager
-com.google.android.katniss
-com.google.android.tv.assistant
+# RE-ENABLED 2026-10-27: without the Google Assistant services the TV stops answering 'Hey Google, turn off bedroom TV' from a Google Home speaker. If you don't use Google Home control, you can disable this again.
+# 
+# RE-ENABLED 2026-10-27: without the Google Assistant services the TV stops answering 'Hey Google, turn off bedroom TV' from a Google Home speaker. If you don't use Google Home control, you can disable this again.
+# 
 com.tcl.assistant
 com.tcl.smartalexa
 com.tcl.micmanager
