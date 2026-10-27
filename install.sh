@@ -12,6 +12,17 @@ TC="$HERE/../toolchain"
 if [ -z "${JAVA_HOME:-}" ] && ls -d "$TC"/jdk-17* >/dev/null 2>&1; then JAVA_HOME="$(cd "$(ls -d "$TC"/jdk-17* | head -n 1)" && { pwd -W 2>/dev/null || pwd; })"; fi
 if [ -z "${ANDROID_HOME:-}" ] && [ -d "$TC/sdk" ]; then ANDROID_HOME="$(cd "$TC/sdk" && { pwd -W 2>/dev/null || pwd; })"; fi
 export JAVA_HOME ANDROID_HOME
+# Apply this repo's launcher patches to the cleanyourtv checkout. Running the script twice is safe:
+# a patch already in place is detected by a reverse-apply dry-run and skipped.
+for p in "$HERE"/patches/*.patch; do
+  [ -f "$p" ] || continue
+  if git -C "$CYT" apply --check --reverse "$p" >/dev/null 2>&1; then
+    echo "patch $(basename "$p") already applied, skipping"
+  else
+    echo "applying patch $(basename "$p")"
+    git -C "$CYT" apply "$p"
+  fi
+done
 HOME_KEY_SERVICE=1 "$CYT/launcher/build-and-install.sh"
 "$CYT/tools/theme.sh" "$HERE/theme"
 TV "dumpsys activity activities | grep mFocusedApp; dumpsys accessibility | grep 'Bound services'"

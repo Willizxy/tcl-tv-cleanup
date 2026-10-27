@@ -1,0 +1,50 @@
+Cold-boot wallpaper retry for TCL G03 AR05 and similar firmware.
+
+On this build, the launcher starts before /sdcard is readable, so the wallpapers
+folder enumerates as empty on first launch and Home comes up with no picture
+until a manual force-stop of the launcher. The fix below schedules one Activity
+recreate() when the symptoms match (wallpaper enabled + rotation > 0 + zero
+images found + within 60s of boot). A per-process static flag ensures the retry
+runs at most once per boot, so a genuinely empty wallpapers folder does not loop.
+
+Apply from the cleanyourtv checkout root with:
+  git apply patches/01-cold-boot-wallpaper-retry.patch
+Six lines of logic plus a static field. Costs nothing on normal boots: the
+cfg.wallpapers.isEmpty() check skips the block when wallpapers loaded fine.
+
+Reported in https://github.com/Willizxy/tcl-tv-cleanup
+
+diff --git a/launcher/app/src/main/java/com/gathin/tvhome/MainActivity.java b/launcher/app/src/main/java/com/gathin/tvhome/MainActivity.java
+index 1796144..1674d07 100644
+--- a/launcher/app/src/main/java/com/gathin/tvhome/MainActivity.java
++++ b/launcher/app/src/main/java/com/gathin/tvhome/MainActivity.java
+@@ -140,6 +140,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+     private RecyclerView grid;
+     private FrameLayout root;
+     private WallpaperPlayer wallpaperPlayer;
++    /** Cold-boot wallpaper retry: set once per process after one Activity recreate, so the retry does
++     *  not loop even if the wallpapers folder is genuinely empty. */
++    private static boolean coldBootWallpaperRetryDone = false;
+     private GlassView glass;
+     private View ambient;
+     private TextView heroName;
+@@ -434,6 +437,19 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+         // the theme's background, so launch looks the same.
+         getWindow().setBackgroundDrawable(null);
+         wallpaperPlayer = new WallpaperPlayer(this, root, cfg);
++        // Cold-boot workaround (TCL G03 AR05 and similar): the launcher can start before /sdcard is
++        // ready and the wallpapers folder enumerates as empty, leaving Home with no picture until a
++        // manual force-stop. If the theme asks for a rotating wallpaper but Config found zero images
++        // within a minute of boot, recreate the Activity once after a short delay. coldBootWallpaperRetryDone
++        // caps this at one retry per process so a genuinely empty wallpapers folder does not loop.
++        if (!coldBootWallpaperRetryDone
++                && SystemClock.elapsedRealtime() < 60_000L
++                && cfg.wallpaperEnabled
++                && cfg.wallpaperRotationMinutes > 0
++                && cfg.wallpapers.isEmpty()) {
++            coldBootWallpaperRetryDone = true;
++            root.postDelayed(this::recreate, 2500L);
++        }
+         sky = findViewById(R.id.sky);
+         sky.setIntensity(cfg.skyIntensity);
+         glass = findViewById(R.id.glass);

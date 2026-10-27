@@ -56,6 +56,8 @@ All 35 stay disabled after a reboot; this firmware doesn't turn them back on.
 **Add-ons installed:**
 - **Weather** (upstream `addons/weather`, by [@Sumyabazar1](https://github.com/Sumyabazar1)): a module-card tile showing current conditions, air quality and a 3-day forecast for Biggleswade, from [Open-Meteo](https://open-meteo.com) (no account or API key). Build from upstream and sideload the APK; the launcher asks once to show the card. See [addons/weather/README.md](https://github.com/Gathin23/cleanyourtv/blob/main/addons/weather/README.md).
 
+**Launcher patch:** `patches/01-cold-boot-wallpaper-retry.patch` fixes a cold-boot issue where the launcher starts before `/sdcard` is ready and comes up with no wallpaper; `install.sh` applies it automatically before building.
+
 **Motion:** `focus_overshoot: false` — the focus highlight glides to its target without bouncing past.
 
 ![App grid](docs/grid.jpg) ![Inputs menu](docs/inputs.jpg)
