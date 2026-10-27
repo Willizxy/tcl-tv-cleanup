@@ -6,7 +6,7 @@ com.tcl.android.webview
 org.chromium.webview_shell
 com.google.android.syncadapters.calendar
 com.google.android.play.games
-# RE-ENABLED 2026-10-27: declares TV_INPUT_HARDWARE on this AR05 build - it is a software layer under HDMI/AV. Disabling it can leave HDMI ports black. See upstream examples/tcl-beyondtv4-uk + docs/devices/tcl-beyondtv4-uk-ar05.md
-# 
+# RE-ENABLED 2026-10-27: declares TV_INPUT_HARDWARE on this AR05 build - the software layer under HDMI/AV. Disabling it can leave HDMI ports black. See upstream examples/tcl-beyondtv4-uk + docs/devices/tcl-beyondtv4-uk-ar05.md
+# com.tcl.gallery
 com.tcl.copydatatotv
 com.tcl.notereminder
